@@ -11,7 +11,7 @@ div.mg1 {
 
 <form action="" method ="POST">
   <label for="fname">Title</label><br>
-  <input type="text" id="title" name="title" value=""><br>
+  <input type="text" id="title" name="title" value="" ><br>
   <label for="lname">Description</label><br>
   <input type="text" id="description" name="description" ><br><br>
   <label for="lname">Date</label><br>
@@ -44,14 +44,14 @@ if (!empty($_POST)) {
 
     if (!empty($date))
     {
-        $stmt = $conn->prepare("INSERT INTO posts (post_title, description, post_at) VALUES (:title, :description, :date)");
+        $stmt = $conn->prepare("SELECT  post_title, description, post_at FROM posts where id = ".$_GET[0]);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':date', $date);
     }
     else
     {
-        $stmt = $conn->prepare("INSERT INTO posts (post_title, description) VALUES (:title, :description)");
+        $stmt = $conn->prepare("SELECT  post_title, description FROM posts where id = ".$_GET[0]);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':description', $description);
     }
